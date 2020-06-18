@@ -53,6 +53,7 @@ target_link_libraries(map_server
     yaml-cpp
     ${catkin_LIBRARIES}
 )
+add_dependencies(map_server map_server_generate_messages_cpp)
 
 add_executable(map_server-map_saver src/map_saver.cpp)
 set_target_properties(map_server-map_saver PROPERTIES OUTPUT_NAME map_saver)
