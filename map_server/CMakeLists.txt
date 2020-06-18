@@ -9,6 +9,7 @@ find_package(catkin REQUIRED
             std_msgs
             message_generation
             roslib
+            rostest
         )
 
 find_package(Boost REQUIRED COMPONENTS system)
@@ -35,9 +36,11 @@ catkin_package(
     LIBRARIES
         map_server_image_loader
     CATKIN_DEPENDS
+        std_msgs
         roscpp
         tf
         nav_msgs
+        message_runtime
 )
 
 include_directories( include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} )
@@ -70,8 +73,8 @@ if(CATKIN_ENABLE_TESTING)
   copy_test_data( FILES
       test/testmap.bmp
       test/testmap.png )
-  catkin_add_gtest(${PROJECT_NAME}_utest test/utest.cpp test/test_constants.cpp)
-  target_link_libraries(${PROJECT_NAME}_utest map_server_image_loader SDL SDL_image)
+  #catkin_add_gtest(${PROJECT_NAME}_utest test/utest.cpp test/test_constants.cpp)
+  #target_link_libraries(${PROJECT_NAME}_utest map_server_image_loader SDL SDL_image)
 
   add_executable(rtest test/rtest.cpp test/test_constants.cpp)
   target_link_libraries( rtest
@@ -81,7 +84,6 @@ if(CATKIN_ENABLE_TESTING)
   add_dependencies(rtest nav_msgs_gencpp)
 
   # This has to be done after we've already built targets, or catkin variables get borked
-  find_package(rostest)
   add_rostest(test/rtest.xml)
 endif()
 
