@@ -53,7 +53,7 @@ target_link_libraries(map_server
     yaml-cpp
     ${catkin_LIBRARIES}
 )
-add_dependencies(map_server map_server_generate_messages_cpp)
+add_dependencies(map_server ${${PROJECT_NAME}_EXPORTED_TARGETS})
 
 add_executable(map_server-map_saver src/map_saver.cpp)
 set_target_properties(map_server-map_saver PROPERTIES OUTPUT_NAME map_saver)
@@ -82,7 +82,7 @@ if(CATKIN_ENABLE_TESTING)
       gtest
       ${catkin_LIBRARIES}
   )
-  add_dependencies(rtest nav_msgs_gencpp)
+  add_dependencies(rtest ${${PROJECT_NAME}_EXPORTED_TARGETS})
 
   # This has to be done after we've already built targets, or catkin variables get borked
   add_rostest(test/rtest.xml)
